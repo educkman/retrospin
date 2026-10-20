@@ -15,3 +15,15 @@ Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Hi-Fi, Ca
 
 ## Open on your phone
 On a computer the login screen shows a QR code, and Settings → *Open on another device* shows one inside the app. Scan it with the phone camera.
+
+## Changelog
+- **1.6** - DJ prep: GetSongBPM credit, Client ID built in
+- **1.5** - Text, vinyl and cassette colours; orange/white play and stop buttons; orange and white finishes
+- **1.4** - Album art on big screens (side, backdrop, framed)
+- **1.3** - One-tap login, QR code to open on phone
+- **1.2** - Classic deck with EQ window, disc wall, car night panel, dolphins
+- **1.1** - Turntable, reel-to-reel, cassette, circle visualizer, mic mode
+- **1.0** - First version: wheel, deck, hi-fi, car and more
+
+## Credits
+BPM & key data by [GetSongBPM](https://getsongbpm.com).

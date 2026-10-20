@@ -42,7 +42,28 @@ select{max-width:100%}
 .sp{background:#1db954!important;color:#000!important}
 
 /* ---------- shell ---------- */
-#app{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom)}
+#app{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);z-index:1}
+/* ---------- album art (big screens) ---------- */
+#artbg{position:fixed;inset:-80px;z-index:0;background:center/cover no-repeat;filter:blur(48px) saturate(1.3) brightness(.42);opacity:0;transition:opacity 1.2s,background-image .6s;pointer-events:none}
+#artside{display:none;flex:none;flex-direction:column;align-items:center;gap:14px;width:min(34vw,440px);margin-right:clamp(24px,4vw,64px)}
+body.art-back #artbg.has{opacity:1}
+body.art-side #artside{display:flex}
+#artside .aimg{width:100%;aspect-ratio:1;background:#222 center/cover no-repeat;border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,.6);transition:background-image .5s}
+#artside .ameta{text-align:center;color:#eee;max-width:100%}
+#artside .at{font:700 20px/1.25 system-ui;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#artside .aa{font:15px system-ui;opacity:.75;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#artside .al{font:13px system-ui;opacity:.5;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* framed gallery style for LP / CD / tape skins */
+body.framed #artside{width:min(32vw,400px)}
+body.framed #artside .afr{width:100%;padding:16px;background:linear-gradient(135deg,#3a2a1c,#1c140c 45%,#2c1f14);box-shadow:inset 0 0 0 2px #0d0906,inset 0 0 0 4px #5a442d,0 30px 70px rgba(0,0,0,.7),0 0 0 1px #000}
+body.framed #artside .amat{padding:9%;background:#f3efe6;box-shadow:inset 0 2px 6px rgba(0,0,0,.35)}
+body.framed #artside .aimg{border-radius:0;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 2px 4px rgba(0,0,0,.2)}
+body.framed #artside .ameta{background:#e9e3d6;color:#2a241c;padding:8px 14px;border-radius:2px;box-shadow:0 4px 12px rgba(0,0,0,.5);text-align:left;width:76%;font-family:Georgia,serif}
+body.framed #artside .at{font:italic 700 16px Georgia,serif}
+body.framed #artside .aa{font:13px Georgia,serif;opacity:.85}
+body.framed #artside .al{font:11px Georgia,serif;opacity:.7}
+#artside .afr,#artside .amat{display:contents}
+body.framed #artside .afr,body.framed #artside .amat{display:block}
 .skin{display:none}
 body[data-skin=deck] #sk-deck,body[data-skin=wheel] #sk-wheel,body[data-skin=rec] #sk-rec,body[data-skin=juke] #sk-juke,body[data-skin=bit] #sk-bit,body[data-skin=hifi] #sk-hifi,body[data-skin=car] #sk-car,body[data-skin=vert] #sk-vert,body[data-skin=wall] #sk-wall,body[data-skin=reel] #sk-reel,body[data-skin=cass] #sk-cass{display:flex}
 .skin.col{flex-direction:column;width:min(100%,460px);height:100%;max-height:900px;padding:60px 0 12px;gap:8px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
@@ -409,7 +430,7 @@ body[data-skin=bit] .fab{background:#fff;color:#000;border:1px solid #000;box-sh
 .vtglass{position:relative;border-radius:6px;padding:7%;background:radial-gradient(ellipse at 50% 40%,#22252b,#07080a);border:1px solid rgba(0,0,0,.7);box-shadow:inset 0 3px 14px rgba(0,0,0,.85)}
 .vtglass::after{content:'';position:absolute;inset:0;border-radius:6px;background:linear-gradient(125deg,rgba(255,255,255,.13),transparent 32%,transparent 70%,rgba(255,255,255,.05));pointer-events:none}
 .vtrec{position:relative;width:100%;aspect-ratio:1}
-.vtdisc{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,transparent 0 31%,#090909 31.5% 33.5%,transparent 34%),repeating-radial-gradient(circle,#171717 0 1.2px,#0a0a0a 1.2px 2.6px);box-shadow:0 0 0 2px #000,0 8px 22px rgba(0,0,0,.75);animation:spin 1.8s linear infinite;animation-play-state:paused}
+.vtdisc{--v1:#171717;--v2:#0a0a0a;--v3:#090909;position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,transparent 0 31%,var(--v3) 31.5% 33.5%,transparent 34%),repeating-radial-gradient(circle,var(--v1) 0 1.2px,var(--v2) 1.2px 2.6px);box-shadow:0 0 0 2px #000,0 8px 22px rgba(0,0,0,.75);animation:spin 1.8s linear infinite;animation-play-state:paused}
 #sk-vert.playing .vtdisc{animation-play-state:running}
 .vtlabel{position:absolute;left:34%;top:34%;width:32%;height:32%;border-radius:50%;overflow:hidden;background:radial-gradient(circle,#f4ead0,#d9c79a);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#5a2a10;font:700 7px system-ui;letter-spacing:.15em}
 .vtlabel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -458,6 +479,13 @@ body[data-skin=bit] .fab{background:#fff;color:#000;border:1px solid #000;box-sh
 .csrow .hsel{background:var(--cbtn);color:var(--cbtxt)}
 .csrow .csb{padding:0 10px}
 
+/* tap-to-change hints */
+.vfd,.wldisp,.vtglass,.cswin{cursor:pointer}
+/* accent buttons: orange/red play, white stop */
+body[data-acc=ow] :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk-cass) :is([data-act=play],[data-act=toggle]){background:linear-gradient(#ff9a3c,#e8650f);color:#2a1000;text-shadow:none;border-color:#7a3000}
+body[data-acc=rw] :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk-cass) :is([data-act=play],[data-act=toggle]){background:linear-gradient(#ff4a3c,#c8141a);color:#fff;text-shadow:none;border-color:#6a0008}
+body:is([data-acc=ow],[data-acc=rw]) :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk-cass) [data-act=stop]{background:linear-gradient(#ffffff,#d9d9d9);color:#111;text-shadow:none;border-color:#777}
+
 /* ---------- sheets & toast ---------- */
 #modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20;padding:16px}
 @media(min-width:600px){#modal{align-items:center}}
@@ -505,9 +533,12 @@ body[data-skin=bit] .fab{background:#fff;color:#000;border:1px solid #000;box-sh
     <p class="small">Tip: paste the Client ID into the <code>CLIENT_ID</code> line at the top of the script in index.html, and this screen becomes a single “Log in” button for everyone.</p>
   </div>
   <p class="small">Friends must be added under the Spotify app’s <b>User Management</b> (max 5 people).</p>
+  <p class="small">BPM &amp; key data by <a href="https://getsongbpm.com" target="_blank" rel="noopener">GetSongBPM</a>.</p>
 </div></div>
 
+<div id="artbg"></div>
 <div id="app" class="hidden">
+  <div id="artside"><div class="afr"><div class="amat"><div class="aimg"></div></div></div><div class="ameta"><div class="at"></div><div class="aa"></div><div class="al"></div></div></div>
   <button class="fab" id="shuf" title="RetroSpin Shuffle — random skin"><b>🎲</b>SHUFFLE</button>
   <button class="fab" id="swap" title="Next skin" aria-label="Next skin">◐</button>
   <button class="fab" id="gear" title="Settings" aria-label="Settings">⚙</button>
@@ -714,7 +745,7 @@ body[data-skin=bit] .fab{background:#fff;color:#000;border:1px solid #000;box-sh
       <div class="cdisp">
         <div class="ctop"><span class="src" data-bind="srcshort"></span><span class="cflags"><i data-flag="shuf">RDM</i><i data-flag="rep">RPT</i></span><span class="clk" data-bind="clock"></span></div>
         <div class="marq" data-fmt="full"></div>
-        <div class="cbot"><span>T<span data-bind="trackno"></span></span><span data-bind="time"></span><canvas class="cbars"></canvas></div>
+        <div class="cbot"><span data-bind="trackno" data-fmt="t"></span><span data-bind="time"></span><canvas class="cbars"></canvas></div>
         <canvas class="cani"></canvas>
       </div>
       <div class="cctl">
@@ -824,7 +855,8 @@ body[data-skin=bit] .fab{background:#fff;color:#000;border:1px solid #000;box-sh
 <script>
 'use strict';
 /* ===== CONFIG: paste your Spotify app's Client ID here (it is not a secret) ===== */
-const CLIENT_ID='';
+const CLIENT_ID='a9a55538c1224a299e734cee7f424c0c';
+const VERSION='1.6';
 
 const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -912,7 +944,7 @@ const DM=(()=>{
   const albums=['Long Way Home','Afterglow','Low Tide Tapes','Northern Static','Kifisia Nights','Oslo Fjord Sessions'].map((n,i)=>{
     const hue=i*57%360;
     const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="hsl(${hue},70%,55%)"/><stop offset="1" stop-color="hsl(${(hue+60)%360},60%,25%)"/></linearGradient></defs><rect width="100" height="100" fill="url(#g)"/><circle cx="${30+i*8}" cy="${40+i*5}" r="${18+i*3}" fill="rgba(255,255,255,.18)"/><text x="8" y="90" font-family="sans-serif" font-size="9" fill="#fff" opacity=".85">${n}</text></svg>`;
-    return{id:'al'+i,name:n,uri:'spotify:album:al'+i,images:[{url:'data:image/svg+xml,'+encodeURIComponent(svg)}],artists:[{name:A[i]}]};
+    return{id:'al'+i,name:n,release_date:String(1979+i*6)+'-01-01',uri:'spotify:album:al'+i,images:[{url:'data:image/svg+xml,'+encodeURIComponent(svg)}],artists:[{name:A[i]}]};
   });
   const tracks=[];let k=0;
   albums.forEach((al,ai)=>{for(let j=0;j<8;j++){const t={id:'t'+k,name:W[(k*5+ai)%W.length]+' '+N[(k*7+j)%N.length],uri:'spotify:track:t'+k,duration_ms:150000+((k*37)%140)*1000,artists:al.artists,album:al,track_number:j+1};tracks.push(t);k++}});
@@ -1279,11 +1311,19 @@ const PAL={
 PAL.wall={
   alu:{name:'Aluminium',c:'#ff5a2e',vars:{'--wface':'repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 1px,rgba(0,0,0,.035) 1px 2px),linear-gradient(#eceef1,#c1c5ca)','--wtxt':'#3a3d42','--wled':'#ff5a2e','--wbtn':'rgba(255,255,255,.35)'}},
   black:{name:'Black',c:'#dfeaff',vars:{'--wface':'repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,transparent 1px 2px),linear-gradient(#2a2b2f,#121315)','--wtxt':'#b8bcc4','--wled':'#dfeaff','--wbtn':'rgba(255,255,255,.06)'}},
-  gold:{name:'Gold',c:'#ffb347',vars:{'--wface':'repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 1px,rgba(0,0,0,.03) 1px 2px),linear-gradient(#efe1bd,#bfa46f)','--wtxt':'#4a3b1e','--wled':'#ffb347','--wbtn':'rgba(255,255,255,.3)'}}
+  gold:{name:'Gold',c:'#ffb347',vars:{'--wface':'repeating-linear-gradient(90deg,rgba(255,255,255,.18) 0 1px,rgba(0,0,0,.03) 1px 2px),linear-gradient(#efe1bd,#bfa46f)','--wtxt':'#4a3b1e','--wled':'#ffb347','--wbtn':'rgba(255,255,255,.3)'}},
+  orange:{name:'Orange',c:'#ffffff',vars:{'--wface':'repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 1px,rgba(0,0,0,.03) 1px 2px),linear-gradient(#ff9a3a,#e3600c)','--wtxt':'#2a1200','--wled':'#ffffff','--wbtn':'rgba(255,255,255,.3)'}},
+  white:{name:'White',c:'#ff8a1f',vars:{'--wface':'linear-gradient(#ffffff,#e4e5e8)','--wtxt':'#2c2f34','--wled':'#ff8a1f','--wbtn':'rgba(0,0,0,.05)'}}
 };
-PAL.vert={silver:{...PAL.hifi.silver,name:'Silver'},black:{...PAL.hifi.black,name:'Black'}};
-PAL.reel={silver:{...PAL.hifi.silver,name:'Brushed silver'},black:{...PAL.hifi.black,name:'Studio black'},gold:{...PAL.hifi.gold,name:'Champagne'}};
+const ORANGE_FIN={name:'Orange',c:'#ff8a1f',m:{scale:'#2a1400',red:'#b0141a',needle:'#1e1006',glow:false},
+  vars:{'--face':'repeating-linear-gradient(90deg,rgba(255,255,255,.1) 0 1px,rgba(0,0,0,.03) 1px 2px),linear-gradient(#ff9a3a,#e8650f 60%,#c44f05)','--ftxt':'#2a1200','--fbtn':'linear-gradient(#ffd1a6,#f08a3a)','--vfd':'#ffffff','--vg':'255,255,255','--m1':'#fff3dc','--m2':'#f0c27a','--mglow':'rgba(255,200,120,.3)','--mscale':'#2a1400','--knob':'repeating-conic-gradient(#d9661a 0 4deg,#ffa24a 4deg 8deg)','--ki':'#2a1200'}};
+const WHITE_FIN={name:'White',c:'#ff8a1f',m:{scale:'#222',red:'#c81e1e',needle:'#111',glow:false},
+  vars:{'--face':'linear-gradient(#ffffff,#e6e7ea)','--ftxt':'#2c2f34','--fbtn':'linear-gradient(#ffffff,#d5d7db)','--vfd':'#ff8a1f','--vg':'255,138,31','--m1':'#ffffff','--m2':'#e2e2dc','--mglow':'rgba(255,255,255,.2)','--mscale':'#222','--knob':'repeating-conic-gradient(#cfd2d6 0 4deg,#f4f5f7 4deg 8deg)','--ki':'#ff6a00'}};
+PAL.hifi.orange=ORANGE_FIN;
+PAL.vert={black:{...PAL.hifi.black,name:'Black'},silver:{...PAL.hifi.silver,name:'Silver'},orange:ORANGE_FIN,white:WHITE_FIN};
+PAL.reel={silver:{...PAL.hifi.silver,name:'Brushed silver'},black:{...PAL.hifi.black,name:'Studio black'},gold:{...PAL.hifi.gold,name:'Champagne'},orange:ORANGE_FIN,white:WHITE_FIN};
 PAL.cass={
+  orange:{name:'Orange',c:'#ff8a1f',shell:'rgba(20,20,22,.95)',label:'#ffffff',stripe:'#ff6a00',ink:'#222',vars:{'--cbody':'linear-gradient(160deg,#ffb060,#f07a1c 55%,#c85a08)','--ctxt':'#2a1200','--cbtn':'linear-gradient(#3a3a3a,#141414)','--cbtxt':'#ffb060'}},
   blue:{name:'Metal blue',c:'#8fb8ff',shell:'rgba(28,32,40,.93)',label:'#f3ead2',stripe:'#d8402f',ink:'#1b2a6b',vars:{'--cbody':'linear-gradient(160deg,#6587cc,#2b4a8c 55%,#1a2e60)','--ctxt':'#e4ebf8','--cbtn':'linear-gradient(#d3d8e0,#8d94a2)','--cbtxt':'#1d2230'}},
   yellow:{name:'Sport yellow',c:'#ffd21f',shell:'rgba(16,16,18,.95)',label:'#ffffff',stripe:'#1f5fbf',ink:'#111',vars:{'--cbody':'linear-gradient(160deg,#ffe36e,#f2b705 60%,#c48a00)','--ctxt':'#2a2200','--cbtn':'linear-gradient(#3c3c3c,#141414)','--cbtxt':'#ffd21f'}},
   silver:{name:'Silver',c:'#dfe3e8',shell:'rgba(205,212,220,.6)',label:'#f6a33a',stripe:'#222',ink:'#222',vars:{'--cbody':'linear-gradient(160deg,#f3f5f7,#babfc6 60%,#8e949c)','--ctxt':'#2f3338','--cbtn':'linear-gradient(#fdfdfd,#c3c7cc)','--cbtxt':'#333'}},
@@ -1301,6 +1341,28 @@ function getPal(skin){
   if(skin==='deck'&&!k)k=LS.get('lcd','green');
   return P[k]?k:Object.keys(P)[0];
 }
+const TXT={green:['Green','#7dff5a','125,255,90'],orange:['Orange','#ff9a1f','255,154,31'],amber:['Amber','#ffc04a','255,192,74'],red:['Red','#ff3b30','255,59,48'],cyan:['Cyan','#63ecff','99,236,255'],blue:['Blue','#4aa8ff','74,168,255'],white:['White','#f2f6ff','242,246,255']};
+const TXT_SKINS=['hifi','vert','reel','wall'];
+const VINYL={black:['Black','#171717','#0a0a0a','#090909'],red:['Oxblood red','#7a1414','#4e0a0a','#3a0606'],orange:['Orange','#e8701a','#b9540c','#8a3c06'],blue:['Ocean blue','#1f4fa0','#123370','#0c2452'],white:['Bone white','#e9e4d6','#cfc8b6','#bdb5a0'],clear:['Smoke clear','rgba(120,120,130,.55)','rgba(70,70,80,.6)','rgba(40,40,50,.7)'],gold:['Gold','#c9a24a','#94741f','#6e5414'],green:['Green','#1f7a3a','#125226','#0c3a1a']};
+const SHELL={pal:['Default',null],smoke:['Smoke','rgba(28,32,40,.93)'],black:['Black','rgba(14,14,16,.97)'],clear:['Clear','rgba(215,222,228,.32)'],white:['White','rgba(246,246,244,.96)'],red:['Red','rgba(200,24,30,.9)'],blue:['Blue','rgba(30,80,190,.88)'],yellow:['Yellow','rgba(250,205,30,.92)'],orange:['Orange','rgba(245,120,20,.92)'],pink:['Pink','rgba(240,110,170,.88)']};
+const getSel=(key,map,def)=>{const v=LS.get(key,def);return map[v]?v:def};
+function applyExtras(skin){
+  const root=$('#sk-'+skin);if(!root)return;
+  if(TXT_SKINS.includes(skin)){
+    const k=LS.get('txt_'+skin,null),t=TXT[k];
+    const v=skin==='wall'?'--wled':'--vfd';
+    if(t){root.style.setProperty(v,t[1]);if(v==='--vfd')root.style.setProperty('--vg',t[2])}
+  }
+  if(skin==='vert'){const d=VINYL[getSel('vinyl',VINYL,'black')];const disc=root.querySelector('.vtdisc');disc.style.setProperty('--v1',d[1]);disc.style.setProperty('--v2',d[2]);disc.style.setProperty('--v3',d[3])}
+}
+function cycleMap(key,map,def,label,after){const ks=Object.keys(map);const cur=LS.get(key,def);const n=ks[(ks.indexOf(map[cur]?cur:def)+1)%ks.length];LS.set(key,n);after&&after();toast(label+': '+map[n][0])}
+function cycleTxt(skin){cycleMap('txt_'+skin,TXT,'green','Display text',()=>applyPal(skin))}
+document.addEventListener('click',e=>{
+  const sk=S.skin;
+  if(e.target.closest('.vfd,.wldisp')&&TXT_SKINS.includes(sk))cycleTxt(sk);
+  else if(e.target.closest('.vtglass'))cycleMap('vinyl',VINYL,'black','Vinyl',()=>applyExtras('vert'));
+  else if(e.target.closest('.cswin'))cycleMap('shell',SHELL,'pal','Cassette',null);
+});
 function applyPal(skin){
   const P=PAL[skin];if(!P)return;
   const k=getPal(skin),p=P[k],root=$('#sk-'+skin);
@@ -1308,6 +1370,7 @@ function applyPal(skin){
   Object.entries(p.vars).forEach(([a,b])=>root.style.setProperty(a,b));
   root.style.setProperty('--pc',p.c);
   root.querySelectorAll('[data-act=pal]').forEach(c=>c.textContent='● '+p.name+' ▾');
+  applyExtras(skin);
 }
 function setPal(skin,k){LS.set('pal_'+skin,k);applyPal(skin)}
 function cyclePal(skin){
@@ -1411,7 +1474,7 @@ function renderSkin(){
   set('dev',e=>e.textContent=(e.dataset.fmt==='arrow'?'» ':'')+(p?.device?.name||'no active device'));
   set('src',e=>e.textContent=srcName());
   set('srcshort',e=>e.textContent=srcShort());
-  set('trackno',e=>e.textContent=trackNo());
+  set('trackno',e=>{const n=trackNo();e.textContent=e.dataset.fmt==='t'?(n==='--'?'':'T'+n):n});
   set('art',e=>{const im=t?.album?.images||t?.images||[];const u=(im[1]||im[0])?.url||'';if(e.getAttribute('src')!==u){if(u)e.src=u;else e.removeAttribute('src')}});
   if(S.skin==='car')root.classList.toggle('dolph',carAnim==='dolphins');
   set('ppicon',e=>{const h=on?I.pause:I.play;if(e.dataset.h!==(on?'p':'s')){e.innerHTML=h;e.dataset.h=on?'p':'s'}});
@@ -1754,7 +1817,7 @@ function drawReels(c,dt,on){
 function rrect(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
 function fitText(g,txt,max){if(g.measureText(txt).width<=max)return txt;while(txt.length>1&&g.measureText(txt+'…').width>max)txt=txt.slice(0,-1);return txt+'…'}
 function drawCass(c,dt,on){
-  const o=prepCanvas(c);if(!o)return;const{g,W,H}=o,P=PAL.cass[getPal('cass')];
+  const o=prepCanvas(c);if(!o)return;const{g,W,H}=o,P0=PAL.cass[getPal('cass')],sh=SHELL[getSel('shell',SHELL,'pal')][1],P={...P0,shell:sh||P0.shell};
   const t=S.pb?.item,d=t?.duration_ms||0,prog=d?pos()/d:0;
   const x0=W*.02,y0=H*.03,cw=W*.96,ch=H*.94;
   rrect(g,x0,y0,cw,ch,ch*.06);g.fillStyle=P.shell;g.fill();g.strokeStyle='rgba(255,255,255,.18)';g.lineWidth=1;g.stroke();
@@ -1861,7 +1924,32 @@ function setupKnobs(){
 document.querySelectorAll('[data-ico]').forEach(b=>{const tx=b.textContent.trim();b.innerHTML=I[b.dataset.ico]+(tx?'<span>'+tx+'</span>':'')});
 
 /* ================= RENDER LOOP ================= */
-function render(){renderWheel();renderSkin()}
+const ACC={ow:'Orange & white',rw:'Red & white',off:'Plain'};
+let accMode=ACC[LS.get('acc','ow')]?LS.get('acc','ow'):'ow';
+document.body.dataset.acc=accMode;
+const ART_MODES={off:'Off',side:'Side',back:'Backdrop',both:'Both'};
+let artMode=ART_MODES[LS.get('art','both')]?LS.get('art','both'):'both';
+const FRAMED=['vert','wall','reel','cass'];
+let artUrl=null;
+function renderArt(){
+  const wide=innerWidth>=900&&innerHeight>=500,on=!$('#app').classList.contains('hidden');
+  const b=document.body;
+  b.classList.toggle('art-side',on&&wide&&(artMode==='side'||artMode==='both'));
+  b.classList.toggle('art-back',on&&wide&&(artMode==='back'||artMode==='both'));
+  b.classList.toggle('framed',FRAMED.includes(S.skin));
+  const t=S.pb?.item,im=t?.album?.images||t?.images||[],u=im[0]?.url||null;
+  if(u!==artUrl){
+    artUrl=u;const css=u?`url("${u}")`:'';
+    $('#artbg').style.backgroundImage=css;$('#artbg').classList.toggle('has',!!u);
+    $('#artside .aimg').style.backgroundImage=css;
+  }
+  $('#artside .at').textContent=t?.name||'Nothing playing';
+  $('#artside .aa').textContent=t?artists(t):'';
+  const yr=t?.album?.release_date?.slice(0,4);
+  $('#artside .al').textContent=t?.album?.name?(t.album.name+(yr?' · '+yr:'')):'';
+}
+addEventListener('resize',renderArt);
+function render(){renderWheel();renderSkin();renderArt()}
 function renderProgress(){
   const t=S.pb?.item,d=t?.duration_ms||0,e=pos();
   if(S.skin==='wheel'){
@@ -1910,16 +1998,32 @@ function openSettings(){
   <div class="lbl">Meters & visuals react to</div>
   ${audModes().map(k=>`<button class="opt${AU.mode===k?' on':''}" data-aud="${k}">${AUD_NAMES[k]}<span>${{sim:'fake but smooth, always works',mic:'hears the room — phone speaker or hi-fi',pc:'share a tab/screen with “Share audio”'}[k]}</span></button>`).join('')}
   <div class="lbl">Options</div>
+  ${TXT_SKINS.includes(S.skin)?`<div class="lbl">Display text colour <span style="text-transform:none;letter-spacing:0">(or tap the display)</span></div>
+  <div class="grid2">${Object.entries(TXT).map(([k,v])=>`<button class="opt${LS.get('txt_'+S.skin,null)===k?' on':''}" data-txt="${k}"><b style="color:${v[1]};font-family:VT323,monospace;font-size:20px;font-weight:400">${v[0]}</b></button>`).join('')}</div>`:''}
+  ${S.skin==='vert'?`<div class="lbl">Vinyl colour <span style="text-transform:none;letter-spacing:0">(or tap the record)</span></div>
+  <div class="grid2">${Object.entries(VINYL).map(([k,v])=>`<button class="opt${getSel('vinyl',VINYL,'black')===k?' on':''}" data-vinyl="${k}"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${v[1]};box-shadow:0 0 0 1px #555"></span>${v[0]}</button>`).join('')}</div>`:''}
+  ${S.skin==='cass'?`<div class="lbl">Cassette colour <span style="text-transform:none;letter-spacing:0">(or tap the tape)</span></div>
+  <div class="grid2">${Object.entries(SHELL).map(([k,v])=>`<button class="opt${getSel('shell',SHELL,'pal')===k?' on':''}" data-shell="${k}">${v[1]?`<span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:${v[1]};box-shadow:0 0 0 1px #555"></span>`:''}${v[0]}</button>`).join('')}</div>`:''}
+  ${['hifi','vert','reel','wall','cass'].includes(S.skin)?`<div class="lbl">Play / stop buttons</div>
+  <div class="grid2">${Object.entries(ACC).map(([k,v])=>`<button class="opt${accMode===k?' on':''}" data-acc="${k}">${v}</button>`).join('')}</div>`:''}
+  <div class="lbl">Album art (big screens)</div>
+  <div class="grid2">${Object.entries(ART_MODES).map(([k,v])=>`<button class="opt${artMode===k?' on':''}" data-art="${k}">${v}</button>`).join('')}</div>
+  <p class="note" style="margin-top:8px">Shows on screens wider than a tablet. LP, CD and tape skins hang the cover in a picture frame.</p>
   <button class="opt" id="sClk">Click sounds (wheel)<span>${S.clicks?'On':'Off'}</span></button>
   <button class="opt" id="sDev">Devices<span>›</span></button>
   <button class="opt" id="sQR">Open on another device<span>QR ›</span></button>
   <button class="opt" id="sOut">${S.demo?'Exit demo':'Sign out'}<span>›</span></button>
-  <p class="note">Audio plays in the Spotify app${IS_MOBILE?'':' or this browser'}, so sound quality follows your Spotify settings. Meters and visuals are simulated unless you pick Microphone or PC audio. Controls need an internet connection.${IS_MOBILE?' Tip: “Add to Home Screen” for a full-screen app.':''}</p>`;
+  <p class="note">Audio plays in the Spotify app${IS_MOBILE?'':' or this browser'}, so sound quality follows your Spotify settings. Meters and visuals are simulated unless you pick Microphone or PC audio. Controls need an internet connection. BPM &amp; key data by <a href="https://getsongbpm.com" target="_blank" rel="noopener" style="color:var(--accent)">GetSongBPM</a>.${IS_MOBILE?' Tip: “Add to Home Screen” for a full-screen app.':''} <br>RetroSpin v${VERSION}</p>`;
   openSheet('Settings',h,m=>{
     m.querySelectorAll('[data-skin]').forEach(b=>b.onclick=()=>{setSkin(b.dataset.skin);closeSheet()});
     m.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>{setPal(S.skin,b.dataset.pal);openSettings()});
     m.querySelectorAll('[data-aud]').forEach(b=>b.onclick=()=>{closeSheet();setAudio(b.dataset.aud)});
     m.querySelector('#sShuf').onclick=()=>{closeSheet();shuffleSkin()};
+    m.querySelectorAll('[data-txt]').forEach(b=>b.onclick=()=>{LS.set('txt_'+S.skin,b.dataset.txt);applyPal(S.skin);openSettings()});
+    m.querySelectorAll('[data-vinyl]').forEach(b=>b.onclick=()=>{LS.set('vinyl',b.dataset.vinyl);applyExtras('vert');openSettings()});
+    m.querySelectorAll('[data-shell]').forEach(b=>b.onclick=()=>{LS.set('shell',b.dataset.shell);openSettings()});
+    m.querySelectorAll('[data-acc]').forEach(b=>b.onclick=()=>{accMode=b.dataset.acc;LS.set('acc',accMode);document.body.dataset.acc=accMode;openSettings()});
+    m.querySelectorAll('[data-art]').forEach(b=>b.onclick=()=>{artMode=b.dataset.art;LS.set('art',artMode);renderArt();openSettings()});
     m.querySelector('#sClk').onclick=()=>{S.clicks=!S.clicks;LS.set('clicks',S.clicks);if(S.clicks)unlockAudio();openSettings()};
     m.querySelector('#sDev').onclick=()=>openDevices();
     m.querySelector('#sQR').onclick=()=>openSheet('Scan with your phone','<div class="qrbox" id="qrSet"></div><p class="qrurl"></p><p class="note">Opens RetroSpin on the phone with your Spotify app settings already filled in — just tap “Log in with Spotify”.</p>',m=>{drawQR(m.querySelector('#qrSet'));m.querySelector('.qrurl').textContent=shareUrl()});
