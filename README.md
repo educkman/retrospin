@@ -17,6 +17,8 @@ Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Hi-Fi, Ca
 On a computer the login screen shows a QR code, and Settings → *Open on another device* shows one inside the app. Scan it with the phone camera.
 
 ## Changelog
+- **1.8** - Terminal skins (single + DJ split) with commands, ASCII disc, code rain; lists follow what is playing
+- **1.7** - DJ setups: twin turntables, CD decks and tape decks with mixer, next track from the queue, BPM and key
 - **1.6** - DJ prep: GetSongBPM credit, Client ID built in
 - **1.5** - Text, vinyl and cassette colours; orange/white play and stop buttons; orange and white finishes
 - **1.4** - Album art on big screens (side, backdrop, framed)
