@@ -17,6 +17,8 @@ Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Hi-Fi, Ca
 On a computer the login screen shows a QR code, and Settings → *Open on another device* shows one inside the app. Scan it with the phone camera.
 
 ## Changelog
+- **1.9.1** - Terminal: full-width progress bar, BPM status and tap
+- **1.9** - BPM numbers on every deck (Deezer + GetSongBPM), TAP tempo, pitch sliders on all DJ decks
 - **1.8** - Terminal skins (single + DJ split) with commands, ASCII disc, code rain; lists follow what is playing
 - **1.7** - DJ setups: twin turntables, CD decks and tape decks with mixer, next track from the queue, BPM and key
 - **1.6** - DJ prep: GetSongBPM credit, Client ID built in

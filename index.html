@@ -507,8 +507,16 @@ body[data-skin=bit] .fab{background:#fff;color:#000;border:1px solid #000;box-sh
 .dkbtns svg{width:12px;height:12px}
 .dkbtns .go{color:var(--dkgo);box-shadow:inset 0 0 0 2px var(--dkgo),0 0 8px color-mix(in srgb,var(--dkgo) 50%,transparent)}
 .dkbtns .cue{color:#ffa21f;box-shadow:inset 0 0 0 2px #ffa21f}
-.dkpitch{display:flex;align-items:center;gap:6px;font:800 8px system-ui;letter-spacing:.12em;opacity:.85}
-.dkpitch input{flex:1;min-width:0;accent-color:var(--dkacc)}
+.dktempo{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:center}
+.dkbpmlcd{display:flex;align-items:baseline;gap:6px;background:#06080a;border:1px solid #000;border-radius:4px;box-shadow:inset 0 2px 8px rgba(0,0,0,.8);padding:2px 8px;font-family:'VT323',ui-monospace,monospace;color:var(--dklcd);text-shadow:0 0 5px color-mix(in srgb,var(--dklcd) 60%,transparent);min-width:0}
+.dkbpmlcd{overflow:hidden;white-space:nowrap}
+.bpmv{font-size:26px;font-weight:400;line-height:1}
+@media (orientation:landscape) and (max-height:640px){.bpmv{font-size:22px}.dkbpmlcd small{display:none}}
+.dkbpmlcd small{font-size:14px;opacity:.7}
+.dkbpmlcd .pv{margin-left:auto;font-size:14px;opacity:.85}
+.tapb{height:100%;min-height:36px;padding:0 9px;border-radius:5px;border:1px solid rgba(0,0,0,.6);background:var(--dkbtn);color:var(--dktxt);font:800 10px system-ui;letter-spacing:.1em;cursor:pointer;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.tapb:active{background:var(--dkgo);color:#111}
+.dktempo .pitch{grid-column:1/-1;width:100%;accent-color:var(--dkacc);margin:0}
 .mx{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;background:var(--dkface);color:var(--dktxt);border:1px solid rgba(0,0,0,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 10px 24px rgba(0,0,0,.5)}
 .mxtitle{display:flex;flex-direction:column;align-items:flex-start;gap:5px;font:800 9px system-ui;letter-spacing:.2em}
 .mxtitle .palchip{color:var(--dkacc);text-shadow:none;font-size:8px}
@@ -891,13 +899,13 @@ body:is([data-acc=ow],[data-acc=rw]) :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk
   <div id="sk-termdj" class="skin term"></div>
 
   <!-- DJ tt -->
-  <div id="sk-djtt" class="skin dj"><div class="djrig"><div class="dk dk-a"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">A · ON AIR</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dkpitch">PITCH<input type="range" min="-8" max="8" step="0.1" value="0" class="pitch"><span class="pv">+0.0%</span></div><div class="dkbtns"><button class="go" data-act="toggle">START · STOP</button></div></div></div><div class="mx"><div class="mxtitle">MIXER<button class="palchip" data-act="pal" data-skin="djtt" title="Change finish"></button></div><div class="mxknobs"><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>LOW</span><span class="mknob"><i></i>LOW</span></div><div class="mxch"><canvas class="mxm" data-ch="a"></canvas><input type="range" class="mxf vol" min="0" max="100" value="50" title="Channel A = volume"><input type="range" class="mxf mxfb" min="0" max="100" value="80" title="Channel B"><canvas class="mxm" data-ch="b"></canvas></div><div class="mxx"><span>A</span><input type="range" class="xf" min="0" max="100" value="0" title="Crossfader - slide fully to B to start the next track"><span>B</span></div></div><div class="dk dk-b"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">B · NEXT</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dkpitch">PITCH<input type="range" min="-8" max="8" step="0.1" value="0" class="pitch"><span class="pv">+0.0%</span></div><div class="dkbtns"><button data-act="next">START</button></div></div></div></div></div>
+  <div id="sk-djtt" class="skin dj"><div class="djrig"><div class="dk dk-a"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">A · ON AIR</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dktempo"><div class="dkbpmlcd"><b class="bpmv">---.-</b><small>BPM</small><span class="pv"></span></div><button class="tapb" data-act="tap" title="Tap along to the beat to set the BPM">TAP</button><input type="range" min="-8" max="8" step="0.1" value="0" class="pitch" title="Pitch / tempo (display only)"></div><div class="dkbtns"><button class="go" data-act="toggle">START · STOP</button></div></div></div><div class="mx"><div class="mxtitle">MIXER<button class="palchip" data-act="pal" data-skin="djtt" title="Change finish"></button></div><div class="mxknobs"><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>LOW</span><span class="mknob"><i></i>LOW</span></div><div class="mxch"><canvas class="mxm" data-ch="a"></canvas><input type="range" class="mxf vol" min="0" max="100" value="50" title="Channel A = volume"><input type="range" class="mxf mxfb" min="0" max="100" value="80" title="Channel B"><canvas class="mxm" data-ch="b"></canvas></div><div class="mxx"><span>A</span><input type="range" class="xf" min="0" max="100" value="0" title="Crossfader - slide fully to B to start the next track"><span>B</span></div></div><div class="dk dk-b"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">B · NEXT</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dktempo"><div class="dkbpmlcd"><b class="bpmv">---.-</b><small>BPM</small><span class="pv"></span></div><button class="tapb" data-act="tap" title="Tap along to the beat to set the BPM">TAP</button><input type="range" min="-8" max="8" step="0.1" value="0" class="pitch" title="Pitch / tempo (display only)"></div><div class="dkbtns"><button data-act="next">START</button></div></div></div></div></div>
 
   <!-- DJ cd -->
-  <div id="sk-djcd" class="skin dj"><div class="djrig"><div class="dk dk-a"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">A · ON AIR</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div><canvas class="dkwave"></canvas></div><div class="dkbtns"><button class="cue" data-act="cueA">CUE</button><button class="go" data-act="toggle" data-bind="ppicon"></button></div></div></div><div class="mx"><div class="mxtitle">MIXER<button class="palchip" data-act="pal" data-skin="djcd" title="Change finish"></button></div><div class="mxknobs"><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>LOW</span><span class="mknob"><i></i>LOW</span></div><div class="mxch"><canvas class="mxm" data-ch="a"></canvas><input type="range" class="mxf vol" min="0" max="100" value="50" title="Channel A = volume"><input type="range" class="mxf mxfb" min="0" max="100" value="80" title="Channel B"><canvas class="mxm" data-ch="b"></canvas></div><div class="mxx"><span>A</span><input type="range" class="xf" min="0" max="100" value="0" title="Crossfader - slide fully to B to start the next track"><span>B</span></div></div><div class="dk dk-b"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">B · NEXT</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div><canvas class="dkwave"></canvas></div><div class="dkbtns"><button class="cue" data-act="cueB">CUE</button><button class="go" data-act="next" data-ico="play"></button></div></div></div></div></div>
+  <div id="sk-djcd" class="skin dj"><div class="djrig"><div class="dk dk-a"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">A · ON AIR</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div><canvas class="dkwave"></canvas></div><div class="dktempo"><div class="dkbpmlcd"><b class="bpmv">---.-</b><small>BPM</small><span class="pv"></span></div><button class="tapb" data-act="tap" title="Tap along to the beat to set the BPM">TAP</button><input type="range" min="-8" max="8" step="0.1" value="0" class="pitch" title="Pitch / tempo (display only)"></div><div class="dkbtns"><button class="cue" data-act="cueA">CUE</button><button class="go" data-act="toggle" data-bind="ppicon"></button></div></div></div><div class="mx"><div class="mxtitle">MIXER<button class="palchip" data-act="pal" data-skin="djcd" title="Change finish"></button></div><div class="mxknobs"><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>LOW</span><span class="mknob"><i></i>LOW</span></div><div class="mxch"><canvas class="mxm" data-ch="a"></canvas><input type="range" class="mxf vol" min="0" max="100" value="50" title="Channel A = volume"><input type="range" class="mxf mxfb" min="0" max="100" value="80" title="Channel B"><canvas class="mxm" data-ch="b"></canvas></div><div class="mxx"><span>A</span><input type="range" class="xf" min="0" max="100" value="0" title="Crossfader - slide fully to B to start the next track"><span>B</span></div></div><div class="dk dk-b"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">B · NEXT</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div><canvas class="dkwave"></canvas></div><div class="dktempo"><div class="dkbpmlcd"><b class="bpmv">---.-</b><small>BPM</small><span class="pv"></span></div><button class="tapb" data-act="tap" title="Tap along to the beat to set the BPM">TAP</button><input type="range" min="-8" max="8" step="0.1" value="0" class="pitch" title="Pitch / tempo (display only)"></div><div class="dkbtns"><button class="cue" data-act="cueB">CUE</button><button class="go" data-act="next" data-ico="play"></button></div></div></div></div></div>
 
   <!-- DJ tape -->
-  <div id="sk-djtape" class="skin dj"><div class="djrig"><div class="dk dk-a"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">A · ON AIR</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dkbtns"><button data-act="prev" data-ico="rew"></button><button class="go" data-act="toggle" data-bind="ppicon"></button><button data-act="stop" data-ico="stop"></button><button data-act="next" data-ico="ffw"></button></div></div></div><div class="mx"><div class="mxtitle">MIXER<button class="palchip" data-act="pal" data-skin="djtape" title="Change finish"></button></div><div class="mxknobs"><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>LOW</span><span class="mknob"><i></i>LOW</span></div><div class="mxch"><canvas class="mxm" data-ch="a"></canvas><input type="range" class="mxf vol" min="0" max="100" value="50" title="Channel A = volume"><input type="range" class="mxf mxfb" min="0" max="100" value="80" title="Channel B"><canvas class="mxm" data-ch="b"></canvas></div><div class="mxx"><span>A</span><input type="range" class="xf" min="0" max="100" value="0" title="Crossfader - slide fully to B to start the next track"><span>B</span></div></div><div class="dk dk-b"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">B · NEXT</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dkbtns"><button class="go" data-act="next">PLAY</button></div></div></div></div></div>
+  <div id="sk-djtape" class="skin dj"><div class="djrig"><div class="dk dk-a"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">A · ON AIR</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dktempo"><div class="dkbpmlcd"><b class="bpmv">---.-</b><small>BPM</small><span class="pv"></span></div><button class="tapb" data-act="tap" title="Tap along to the beat to set the BPM">TAP</button><input type="range" min="-8" max="8" step="0.1" value="0" class="pitch" title="Pitch / tempo (display only)"></div><div class="dkbtns"><button data-act="prev" data-ico="rew"></button><button class="go" data-act="toggle" data-bind="ppicon"></button><button data-act="stop" data-ico="stop"></button><button data-act="next" data-ico="ffw"></button></div></div></div><div class="mx"><div class="mxtitle">MIXER<button class="palchip" data-act="pal" data-skin="djtape" title="Change finish"></button></div><div class="mxknobs"><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>HI</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>MID</span><span class="mknob"><i></i>LOW</span><span class="mknob"><i></i>LOW</span></div><div class="mxch"><canvas class="mxm" data-ch="a"></canvas><input type="range" class="mxf vol" min="0" max="100" value="50" title="Channel A = volume"><input type="range" class="mxf mxfb" min="0" max="100" value="80" title="Channel B"><canvas class="mxm" data-ch="b"></canvas></div><div class="mxx"><span>A</span><input type="range" class="xf" min="0" max="100" value="0" title="Crossfader - slide fully to B to start the next track"><span>B</span></div></div><div class="dk dk-b"><div class="dkviz"><canvas></canvas></div><div class="dkside"><div class="dkhead"><span class="dktag">B · NEXT</span><span class="badges"><b class="bpm"></b><b class="key"></b></span></div><div class="dklcd"><div class="dkt"></div><div class="dka"></div><div class="dktime"></div></div><div class="dktempo"><div class="dkbpmlcd"><b class="bpmv">---.-</b><small>BPM</small><span class="pv"></span></div><button class="tapb" data-act="tap" title="Tap along to the beat to set the BPM">TAP</button><input type="range" min="-8" max="8" step="0.1" value="0" class="pitch" title="Pitch / tempo (display only)"></div><div class="dkbtns"><button class="go" data-act="next">PLAY</button></div></div></div></div></div>
 
   <!-- VERTICAL TURNTABLE -->
   <div id="sk-vert" class="skin col center">
@@ -969,7 +977,7 @@ body:is([data-acc=ow],[data-acc=rw]) :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk
 'use strict';
 /* ===== CONFIG: paste your Spotify app's Client ID here (it is not a secret) ===== */
 const CLIENT_ID='a9a55538c1224a299e734cee7f424c0c';
-const VERSION='1.8';
+const VERSION='1.9.1';
 
 const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -2029,22 +2037,57 @@ async function gsb(type,lookup){
   const r=await fetch(`https://api.getsong.co/search/?api_key=${BPM_KEY}&type=${type}&lookup=${q}`);
   const j=await r.json();return Array.isArray(j?.search)?j.search:[];
 }
-async function lookupBPM(t){
-  const title=cleanT(t.name),art=t.artists?.[0]?.name||'',na=normS(art);
-  let res=await gsb('both',`song:${title} artist:${art}`);
-  let hit=res.find(x=>normS(x.artist?.name)===na)||res.find(x=>{const a=normS(x.artist?.name);return a&&na&&(a.includes(na)||na.includes(a))});
-  if(!hit){res=await gsb('song',title);hit=res.find(x=>{const a=normS(x.artist?.name);return a&&na&&(a.includes(na)||na.includes(a))})}
-  if(!hit||!+hit.tempo)return false;
-  return{bpm:Math.round(+hit.tempo),cam:camelot(hit.key_of)};
+let jsonpN=0;
+function jsonp(url){
+  return new Promise((res,rej)=>{
+    const cb='__rsj'+(++jsonpN),sc=document.createElement('script');
+    const done=()=>{clearTimeout(to);delete window[cb];sc.remove()};
+    const to=setTimeout(()=>{done();rej(new Error('timeout'))},8000);
+    window[cb]=d=>{done();res(d)};sc.onerror=()=>{done();rej(new Error('blocked'))};
+    sc.src=url+(url.includes('?')?'&':'?')+'output=jsonp&callback='+cb;document.head.appendChild(sc);
+  });
 }
+async function deezerBPM(t){
+  const isrc=t.external_ids?.isrc;
+  if(isrc){const d=await jsonp('https://api.deezer.com/track/isrc:'+encodeURIComponent(isrc));if(d&&!d.error&&d.bpm>0)return d.bpm}
+  const q=`artist:"${t.artists?.[0]?.name||''}" track:"${cleanT(t.name)}"`;
+  const sr=await jsonp('https://api.deezer.com/search?q='+encodeURIComponent(q)+'&limit=3');
+  for(const x of (sr?.data||[]).slice(0,2)){const d=await jsonp('https://api.deezer.com/track/'+x.id);if(d&&d.bpm>0)return d.bpm}
+  return 0;
+}
+async function gsbInfo(t){
+  const title=cleanT(t.name),arts=(t.artists||[]).map(a=>normS(a.name)).filter(Boolean);
+  const ok=x=>{const a=normS(x.artist?.name);return a&&arts.some(b=>a===b||a.includes(b)||b.includes(a))};
+  let res=await gsb('both',`song:${title} artist:${t.artists?.[0]?.name||''}`);let hit=res.find(ok);
+  if(!hit){res=await gsb('song',title);hit=res.find(ok)}
+  return hit&&+hit.tempo?{bpm:+hit.tempo,cam:camelot(hit.key_of)}:null;
+}
+async function lookupBPM(t){
+  let bpm=0,cam=null,src='';
+  try{const b=await deezerBPM(t);if(b>0){bpm=b;src='Deezer'}}catch(e){console.warn('Deezer BPM',e)}
+  try{const g=await gsbInfo(t);if(g){cam=g.cam;if(!bpm){bpm=g.bpm;src='GetSongBPM'}}}catch(e){console.warn('GetSongBPM',e)}
+  return bpm?{bpm:Math.round(bpm*10)/10,cam,src}:false;
+}
+const BPMST={};
 function bpmInfo(t){
   if(!t||!bpmOn)return null;
   const id=t.id||t.uri;if(!id)return null;
-  if(S.demo){const h=hashStr(id);return{bpm:116+h%16,cam:((h>>3)%12+1)+((h>>7)&1?'A':'B')}}
   if(BPMC[id]!==undefined)return BPMC[id]||null;
-  const c=LS.get('bpm_'+id,null);if(c!==null){BPMC[id]=c;return c||null}
-  if(!bpmPend[id]){bpmPend[id]=1;lookupBPM(t).then(r=>{BPMC[id]=r;LS.set('bpm_'+id,r)}).catch(e=>console.warn('BPM lookup failed',e))}
+  if(S.demo){const h=hashStr(id);return{bpm:116+h%16,cam:((h>>3)%12+1)+((h>>7)&1?'A':'B')}}
+  const c=LS.get('bpm2_'+id,null);if(c!==null){BPMC[id]=c;BPMST[id]=c?'ok':'none';return c||null}
+  if(!bpmPend[id]){bpmPend[id]=1;BPMST[id]='loading';lookupBPM(t).then(r=>{BPMC[id]=r;BPMST[id]=r?'ok':'none';LS.set('bpm2_'+id,r)}).catch(e=>{BPMST[id]='error';console.warn('BPM lookup failed',e)})}
   return null;
+}
+const TAPS={id:null,t:[]};
+function tapTempo(t){
+  if(!t){toast('Nothing on this deck');return}
+  const id=t.id||t.uri,now=performance.now();
+  if(TAPS.id!==id||now-(TAPS.t[TAPS.t.length-1]||0)>2000)TAPS.t=[];
+  TAPS.id=id;TAPS.t.push(now);TAPS.t=TAPS.t.slice(-8);
+  if(TAPS.t.length<3){toast('Keep tapping on the beat...');return}
+  let bpm=60000/((TAPS.t[TAPS.t.length-1]-TAPS.t[0])/(TAPS.t.length-1));
+  while(bpm<70)bpm*=2;while(bpm>185)bpm/=2;
+  const r={...(BPMC[id]||{}),bpm:Math.round(bpm*10)/10,src:'tap'};BPMC[id]=r;BPMST[id]='ok';LS.set('bpm2_'+id,r);
 }
 S.next=null;let lastQ=0,lastQUri=null;
 const isDJ=()=>S.skin.startsWith('dj');
@@ -2151,9 +2194,9 @@ function drawDJ(root,tt,dt){
     const tm=el.querySelector('.dktime'),html=isA?`<span>${fmt(e)}</span><span>-${fmt(d-e)}</span>`:`<span>${tr?'CUED':''}</span><span>${tr?fmt(tr.duration_ms):''}</span>`;
     if(tm._h!==html){tm._h=html;tm.innerHTML=html}
     const bi=bpmInfo(tr),bp=el.querySelector('.bpm'),ky=el.querySelector('.key');
-    let bv=bi?bi.bpm+' BPM':'';
-    if(bi&&isA&&S.skin==='djtt'){const pv=+(el.querySelector('.pitch')?.value||0);if(pv)bv=(bi.bpm*(1+pv/100)).toFixed(1)+' BPM'}
-    setTxt(bp,bv);setTxt(ky,bi?.cam||'');if(ky._c!==bi?.cam){ky._c=bi?.cam;ky.style.background=camColor(bi?.cam)}
+    const pv=+(el.querySelector('.pitch')?.value||0),bst=BPMST[tr?.id||tr?.uri];
+    setTxt(el.querySelector('.bpmv'),!tr?'---.-':bi?(v=>Number.isInteger(v)?String(v):v.toFixed(1))(Math.round(bi.bpm*(1+pv/100)*10)/10):!bpmOn?'off':bst==='loading'?'...':'TAP');
+    setTxt(bp,bi?.src==='tap'?'TAPPED':'');setTxt(ky,bi?.cam||'');if(ky._c!==bi?.cam){ky._c=bi?.cam;ky.style.background=camColor(bi?.cam)}
   });
   const rem=d-e,target=on&&d&&rem<12000?Math.min(100,(1-rem/12000)*100):0;
   if(!DJ.xfdrag){DJ.xf+=(target-DJ.xf)*.08;const x=root.querySelector('.xf');if(x)x.value=DJ.xf}
@@ -2173,7 +2216,7 @@ function drawDJ(root,tt,dt){
 })();
 document.addEventListener('input',e=>{const t=e.target;
   if(t.classList?.contains('xf')){DJ.xfdrag=true;DJ.xf=+t.value}
-  else if(t.classList?.contains('pitch')){const s=t.parentElement.querySelector('.pv');if(s)s.textContent=(+t.value>=0?'+':'')+(+t.value).toFixed(1)+'%'}
+  else if(t.classList?.contains('pitch')){const s=t.closest('.dktempo')?.querySelector('.pv');if(s)s.textContent=+t.value?(+t.value>0?'+':'')+(+t.value).toFixed(1)+'%':''}
 });
 document.addEventListener('change',e=>{const t=e.target;if(!t.classList?.contains('xf'))return;DJ.xfdrag=false;
   if(+t.value>80){if(S.next){nextT();toast('🎚 Mixed into deck B')}else toast('Deck B is empty')}});
@@ -2189,7 +2232,7 @@ function buildTerm(root,dj){
   <div class="tlwrap"><div class="tlhead"><span>── list:</span><select class="src tsel"></select><span class="tfoot"></span></div><div class="tlist"></div></div>
   <div class="tout"></div>
   <form class="tcmd"><label>retrospin@hifi:~$</label><input autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="go" aria-label="Command"><button type="submit">⏎</button></form>
-  <div class="tbtns">${btn('toggle','play/pause')}${btn('prev','prev')}${btn('next','next')}${dj?btn('mix','mix'):''}${btn('list','list')}${btn('disc','disc')}${btn('vis','vis')}${btn('color','color')}${btn(dj?'single':'dj',dj?'single':'dj')}${btn('help','help')}</div>
+  <div class="tbtns">${btn('toggle','play/pause')}${btn('prev','prev')}${btn('next','next')}${dj?btn('mix','mix'):''}${btn('tap','tap')}${btn('list','list')}${btn('disc','disc')}${btn('vis','vis')}${btn('color','color')}${btn(dj?'single':'dj',dj?'single':'dj')}${btn('help','help')}</div>
   </div></div>`;
 }
 buildTerm($('#sk-term'),false);buildTerm($('#sk-termdj'),true);
@@ -2211,7 +2254,7 @@ function tcmd(raw){
   const parts=raw.trim().split(/\s+/),c=(parts[0]||'').toLowerCase(),a=parts.slice(1),arg=(a[0]||'').toLowerCase();if(!c)return;
   tlog('$ '+raw.trim());
   switch(c){
-    case 'help':case '?':tlog('play pause next prev mix · vol 0-100 · ls · open N\nlist on|off · disc spin|still|off · vis bars|rain|off\ncolor '+Object.keys(TCOL).join('|')+' · crt on|off · dj · single · skin NAME · bpm on|off · clear');break;
+    case 'help':case '?':tlog('play pause next prev mix tap · vol 0-100 · ls · open N\nlist on|off · disc spin|still|off · vis bars|rain|off\ncolor '+Object.keys(TCOL).join('|')+' · crt on|off · dj · single · skin NAME · bpm on|off · clear');break;
     case 'play':if(!S.pb?.is_playing)togglePlay();break;
     case 'pause':case 'stop':if(S.pb?.is_playing)togglePlay();break;
     case 'toggle':togglePlay();break;
@@ -2231,6 +2274,7 @@ function tcmd(raw){
     case 'skin':{const k=Object.keys(SKINS).find(k=>k===arg||SKINS[k].name.toLowerCase().replace(/\s/g,'').startsWith(arg));if(arg&&k)setSkin(k);else tlog('skins: '+Object.keys(SKINS).join(' '))}break;
     case 'shuffle':toggleShuffle();tlog('shuffle toggled');break;
     case 'repeat':cycleRepeat();tlog('repeat toggled');break;
+    case 'tap':tapTempo(S.pb?.item);break;
     case 'bpm':bpmOn=arg?arg!=='off':!bpmOn;LS.set('bpmon',bpmOn);tlog('bpm lookup '+(bpmOn?'on':'off'));break;
     case 'clear':case 'cls':TERM.out=[];tlog('');break;
     case 'whoami':tlog('someone with excellent taste in music');break;
@@ -2241,7 +2285,9 @@ function tcmd(raw){
 }
 document.addEventListener('submit',e=>{const f=e.target.closest('.tcmd');if(!f)return;e.preventDefault();const i=f.querySelector('input');tcmd(i.value);i.value=''});
 document.addEventListener('click',e=>{const b=e.target.closest('[data-tact]');if(!b)return;activateSdk();const a=b.dataset.tact;
-  if(a==='toggle'){togglePlay();return}tcmd(a)});
+  if(a==='toggle'){togglePlay();return}
+  if(a==='tap'){tapTempo(S.skin==='termdj'&&b.dataset.deck==='b'?S.next:S.pb?.item);return}
+  tcmd(a)});
 /* ---- ASCII disc from cover art ---- */
 const RAMP=' .:-=+*#%@';const TIMG={};
 function coverLum(t){
@@ -2298,14 +2344,16 @@ function termSingle(cols,tt){
   if(tr?.uri!==TERM.tw.uri)TERM.tw={uri:tr?.uri,full:tr?.name||'nothing playing',start:performance.now()};
   const n=Math.floor((performance.now()-TERM.tw.start)/38),title=TERM.tw.full.slice(0,n)+(n<TERM.tw.full.length?'█':'');
   const yr=tr?.album?.release_date?.slice(0,4),bi=bpmInfo(tr),v=p?.device?.volume_percent;
-  const meta=[bi?bi.bpm+' BPM':'',bi?.cam||'',v!=null?'vol '+v+'%':'',p?.shuffle_state?'shuf':'',(p?.repeat_state||'off')!=='off'?'rep':''].filter(Boolean).join(' · ');
+  const bst=BPMST[tr?.id||tr?.uri],bpmTxt=!tr||!bpmOn?'':bi?bi.bpm+' BPM'+(bi.src==='tap'?' (tap)':''):bst==='loading'?'... BPM':'BPM ? (tap)';
+  const meta=[bpmTxt,bi?.cam||'',v!=null?'vol '+v+'%':'',p?.shuffle_state?'shuf':'',(p?.repeat_state||'off')!=='off'?'rep':''].filter(Boolean).join(' · ');
   const rows=innerHeight<520?6:cols>=70?11:cols>=46?9:8;
   const disc=tDiscLines(rows,tr,0),dw=disc[0]?.length||0,side=disc.length&&cols>=dw+24;
   const iw=side?cols-dw-2:cols;
-  const info=[(on?'> ':'|| ')+title,'  '+(tr?artists(tr):'start Spotify, or type: open 1'),'  '+(tr?.album?.name||'')+(yr?' · '+yr:''),'','  '+tbar(d?e/d:0,iw-18)+' '+fmt(e)+'/'+fmt(d),'  '+meta].map(l=>tpad(l,iw));
+  const info=[(on?'> ':'|| ')+title,'  '+(tr?artists(tr):'start Spotify, or type: open 1'),'  '+(tr?.album?.name||'')+(yr?' · '+yr:''),'  '+meta].map(l=>tpad(l,iw));
   let lines=[];
   if(side){const off=Math.max(0,Math.floor((disc.length-info.length)/2));for(let i=0;i<Math.max(disc.length,info.length+off);i++)lines.push((disc[i]||' '.repeat(dw))+'  '+(info[i-off]||''))}
   else{const pad=' '.repeat(Math.max(0,Math.floor((cols-dw)/2)));disc.forEach(l=>lines.push(pad+l));lines.push(...info)}
+  const tl=' '+fmt(e)+' / '+fmt(d);lines.push('',tbar(d?e/d:0,cols-tl.length-2)+tl);
   if(TERM.vis==='bars')lines.push('',tSpectrum(cols,tt,on||!!AU.an));
   return lines.join('\n');
 }
@@ -2391,6 +2439,7 @@ const ACT={
   eqinfo:()=>openSheet('About the equalizer','<p class="note">This EQ window is for looks — a web page can’t change the sound coming out of the Spotify app.</p><p class="note"><b>Real EQ options:</b><br>• <b>Sony headphones:</b> the Sony headphones app has a proper EQ, and it travels with the headphones to every device — best option for you.<br>• <b>Spotify app:</b> Settings → Playback → Equalizer (phone).<br>• <b>Samsung:</b> Settings → Sounds and vibration → Sound quality and effects → Equalizer.</p>'),
   misc:()=>openSettings(),
   night:()=>{const r=$('#sk-car');r.classList.toggle('night');LS.set('night',r.classList.contains('night'));toast(r.classList.contains('night')?'Night panel on':'Night panel off')},
+  tap:b=>{const isA=!!b.closest('.dk-a');tapTempo(isA?S.pb?.item:S.next)},
   cueA:()=>{seekTo(0);toast('Back to cue point')},
   cueB:()=>toast(S.next?'Deck B is cued - press PLAY or slide the crossfader to B':'Deck B is empty'),
   canim:()=>{carAnim=carAnim==='bars'?'dolphins':'bars';LS.set('canim2',carAnim);renderSkin();toast(carAnim==='dolphins'?'🐬 Dolphin display':'Spectrum display')},
