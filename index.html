@@ -977,7 +977,7 @@ body:is([data-acc=ow],[data-acc=rw]) :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk
 'use strict';
 /* ===== CONFIG: paste your Spotify app's Client ID here (it is not a secret) ===== */
 const CLIENT_ID='a9a55538c1224a299e734cee7f424c0c';
-const VERSION='1.9.2';
+const VERSION='1.9.3';
 
 const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -2064,15 +2064,19 @@ async function gsbInfo(t){
 }
 const BPMDIAG={};
 async function deezerDiag(t,D){
-  const isrc=t.external_ids?.isrc;D.isrc=isrc||'(none from Spotify)';
+  let isrc=t.external_ids?.isrc;
+  if(!isrc&&t.id&&!S.demo){try{const full=await api('/tracks/'+t.id);isrc=full?.external_ids?.isrc;D.isrcvia=isrc?'via track details':'track details had none'}catch(e){D.isrcvia='track details failed: '+e.message}}
+  D.isrc=(isrc||'(none from Spotify)')+(D.isrcvia?' - '+D.isrcvia:'');
   if(isrc){
     const d=await jsonp('https://api.deezer.com/track/isrc:'+encodeURIComponent(isrc));
     if(d?.error)D.dz='ISRC not found ('+(d.error.message||d.error.type||'error')+')';
     else{D.dz='found "'+d.title+'" - bpm field: '+d.bpm;if(d.bpm>0)return d.bpm}
   }
-  const q=`artist:"${t.artists?.[0]?.name||''}" track:"${cleanT(t.name)}"`;
-  const sr=await jsonp('https://api.deezer.com/search?q='+encodeURIComponent(q)+'&limit=3');
-  const hits=sr?.data||[];D.dzs=hits.length+' search hits';
+  const art=t.artists?.[0]?.name||'',ti=cleanT(t.name);
+  let sr=await jsonp('https://api.deezer.com/search?q='+encodeURIComponent(`artist:"${art}" track:"${ti}"`)+'&limit=3');
+  D.dzs='strict: '+(sr?.error?('error '+(sr.error.message||sr.error.type)):(sr?.data||[]).length+' hits');
+  if(!(sr?.data||[]).length){sr=await jsonp('https://api.deezer.com/search?q='+encodeURIComponent(art+' '+ti)+'&limit=3');D.dzs+=' · plain: '+(sr?.error?('error '+(sr.error.message||sr.error.type)):(sr?.data||[]).length+' hits')}
+  const hits=sr?.data||[];
   for(const x of hits.slice(0,2)){const d=await jsonp('https://api.deezer.com/track/'+x.id);D.dzs+=' · "'+x.title+'" bpm '+(d?.bpm??'?');if(d&&d.bpm>0)return d.bpm}
   return 0;
 }

@@ -17,6 +17,7 @@ Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Hi-Fi, Ca
 On a computer the login screen shows a QR code, and Settings → *Open on another device* shows one inside the app. Scan it with the phone camera.
 
 ## Changelog
+- **1.9.3** - BPM: fetch ISRC from track details, plain Deezer search fallback
 - **1.9.2** - BPM diagnosis (tap the BPM display), retries failed lookups
 - **1.9.1** - Terminal: full-width progress bar, BPM status and tap
 - **1.9** - BPM numbers on every deck (Deezer + GetSongBPM), TAP tempo, pitch sliders on all DJ decks
