@@ -1270,7 +1270,7 @@ body:is([data-acc=ow],[data-acc=rw]) :is(#sk-hifi,#sk-vert,#sk-reel,#sk-wall,#sk
 'use strict';
 /* ===== CONFIG: paste your Spotify app's Client ID here (it is not a secret) ===== */
 const CLIENT_ID='a9a55538c1224a299e734cee7f424c0c';
-const VERSION='2.2';
+const VERSION='2.2.1';
 
 const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -3445,7 +3445,7 @@ function drawPixTT(c,dt,on,tr,prog,st,isA){
   const lq=on?[90,255,106]:[40,70,44];[[0,0],[1,0],[0,1],[1,1]].forEach(([a,b2])=>put(x0+4+a,y1-5+b2,lq));
   g.putImageData(id,0,0);
   // arcade prompts: deck A waits for START, deck B for PLAY, an empty deck wants a cartridge
-  const msg=!tr?'INSERT CART':isA?(on?'':'PRESS START'):'PRESS PLAY',ph=performance.now()/1000*1.6+(isA?0:1);
+  const msg=!tr?'INSERT CART':isA?(S.pb?.is_playing?'':'PRESS START'):'PRESS PLAY',ph=performance.now()/1000*1.6+(isA?0:1);
   if(msg&&Math.floor(ph)%2===0){const im=pxText(msg,isA?'#ffe14a':'#8fe8ff'),bw=im.width+8,bx=Math.round((W-bw)/2),by=Math.round(H*.74);
     if(bw<=W){pxFrame(g,bx,by,bw,im.height+6,'#0c1a5a');g.drawImage(pxText(msg,'#0a0a1e'),bx+5,by+4);g.drawImage(im,bx+4,by+3)}}
 }
