@@ -1,6 +1,6 @@
 # RetroSpin
 
-Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Hi-Fi, Car stereo, Terminal, DJ setups (turntables, CD, tape, Recorder, 1-Bit, terminal), Disc wall, Vertical turntable, Reel-to-reel, Cassette.
+Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Chunky Pixel, Hi-Fi, Car stereo, Terminal, DJ setups (turntables, CD, tape, Recorder, 1-Bit, terminal), Disc wall, Vertical turntable, Reel-to-reel, Cassette.
 
 ## Put it online (GitHub Pages)
 1. On github.com: **New repository** → name `retrospin` → **Public** → Create.
@@ -17,6 +17,7 @@ Retro player skins for Spotify: Deck, Wheel, Recorder, Jukebox, 1-Bit, Hi-Fi, Ca
 On a computer the login screen shows a QR code, and Settings → *Open on another device* shows one inside the app. Scan it with the phone camera.
 
 ## Changelog
+- **2.1** - Chunky Pixel skin: see-through 16-bit handheld (portrait) and console (landscape) with circuit board, pixel scenery, pixel cover art, menu-style playlist; 15 shell colours, see-through or solid; coloured D-pads; 1-Bit gets Purple, Mint and Baby blue
 - **2.0** - DJ Recorder and DJ 1-Bit skins; faster scratching (seeks while you drag, no waiting on release, browser player seeks directly); colour sets for 1-Bit (9) and Recorder (4); small cover window on Recorder, 1-Bit and Jukebox (Cover Flow) with Album art / Motion switch; set BPM + Camelot key by hand per song; detect BPM with the microphone; terminal: `bpm 124 8A`, `bpm b 126 9A`, `listen`
 - **1.9.4** - App icon: white R on an orange record
 - **1.9.3** - BPM: fetch ISRC from track details, plain Deezer search fallback
